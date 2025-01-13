@@ -19,23 +19,31 @@ public class Statement {
 
     public  String statement() {
         double totalAmount = 0;
-        int volumeCredits = 0;
 
         StringBuilder result = new StringBuilder(String.format("청구내역 (고객명: %s)\n", invoice.getCustomer()));
 
 
         for (Invoice.Performance perf : invoice.getPerformances()) {
-            volumeCredits += volumnCreditsFor(perf);
 
             // 청구 내역 출력
             result.append(String.format("%s: %s %d석\n", playFor(perf).getName(), usd(amountFor(perf)), perf.getAudience()));
             totalAmount += amountFor(perf);
         }
 
+        int volumeCredits = totalVolumeCredits();
+
         result.append(String.format("총액 %s\n", usd(totalAmount)));
         result.append(String.format("적립 포인트 %d점\n", volumeCredits));
 
         return result.toString();
+    }
+
+    private int totalVolumeCredits() {
+        int volumeCredits = 0;
+        for (Invoice.Performance perf : invoice.getPerformances()) {
+            volumeCredits += volumnCreditsFor(perf);
+        }
+        return volumeCredits;
     }
 
     private String usd(double aNumber) {
