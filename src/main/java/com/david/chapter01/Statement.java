@@ -20,19 +20,13 @@ public class Statement {
     public  String statement() {
         double totalAmount = 0;
         int volumeCredits = 0;
+
         StringBuilder result = new StringBuilder(String.format("청구내역 (고객명: %s)\n", invoice.getCustomer()));
 
         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
 
         for (Invoice.Performance perf : invoice.getPerformances()) {
-
-            // 포인트 적립
-            volumeCredits += Math.max(perf.getAudience() - 30, 0);
-
-            // 희극 관객 5명마다 추가 포인트
-            if ("comedy".equals(playFor(perf).getType())) {
-                volumeCredits += (int) Math.floor((double) perf.getAudience() / 5);
-            }
+            volumeCredits += volumnCreditsFor(perf);
 
             // 청구 내역 출력
             result.append(String.format("%s: %s %d석\n", playFor(perf).getName(), formatter.format(amountFor(perf) / 100), perf.getAudience()));
@@ -43,6 +37,19 @@ public class Statement {
         result.append(String.format("적립 포인트 %d점\n", volumeCredits));
 
         return result.toString();
+    }
+
+    private int volumnCreditsFor(Invoice.Performance aPerformance) {
+        int result = 0;
+        // 포인트 적립
+        result += Math.max(aPerformance.getAudience() - 30, 0);
+
+        // 희극 관객 5명마다 추가 포인트
+        if ("comedy".equals(playFor(aPerformance).getType())) {
+            result += (int) Math.floor((double) aPerformance.getAudience() / 5);
+        }
+
+        return result;
     }
 
     private Play playFor(Invoice.Performance aPerformance) {
