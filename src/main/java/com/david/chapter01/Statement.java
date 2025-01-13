@@ -1,6 +1,7 @@
 package com.david.chapter01;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -8,6 +9,15 @@ import java.util.Map;
  * 청구서 출력
  */
 public class Statement {
+
+    private Invoice invoice;
+    private Map<String, Play> plays;
+
+    public Statement(Invoice invoice, Map<String, Play> plays) {
+        this.invoice = invoice;
+        this.plays = plays;
+    }
+
     public  String statement(Invoice invoice, Map<String, Play> plays) {
         double totalAmount = 0;
         int volumeCredits = 0;
@@ -16,7 +26,7 @@ public class Statement {
         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
 
         for (Invoice.Performance perf : invoice.getPerformances()) {
-            Play play = plays.get(perf.getPlayID());
+            Play play = playFor(perf);
             double thisAmount = amountFor(perf, play);
 
             // 포인트 적립
@@ -36,6 +46,10 @@ public class Statement {
         result.append(String.format("적립 포인트 %d점\n", volumeCredits));
 
         return result.toString();
+    }
+
+    private Play playFor(Invoice.Performance aPerformance) {
+        return plays.get(aPerformance.getPlayID());
     }
 
     private double amountFor(Invoice.Performance aPerformance, Play play) {
