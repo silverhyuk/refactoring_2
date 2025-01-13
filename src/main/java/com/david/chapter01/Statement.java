@@ -23,20 +23,24 @@ public class Statement {
 
         StringBuilder result = new StringBuilder(String.format("청구내역 (고객명: %s)\n", invoice.getCustomer()));
 
-        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
 
         for (Invoice.Performance perf : invoice.getPerformances()) {
             volumeCredits += volumnCreditsFor(perf);
 
             // 청구 내역 출력
-            result.append(String.format("%s: %s %d석\n", playFor(perf).getName(), formatter.format(amountFor(perf) / 100), perf.getAudience()));
+            result.append(String.format("%s: %s %d석\n", playFor(perf).getName(), format(amountFor(perf) / 100), perf.getAudience()));
             totalAmount += amountFor(perf);
         }
 
-        result.append(String.format("총액 %s\n", formatter.format(totalAmount / 100)));
+        result.append(String.format("총액 %s\n", format(totalAmount / 100)));
         result.append(String.format("적립 포인트 %d점\n", volumeCredits));
 
         return result.toString();
+    }
+
+    private String format(double amount) {
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
+        return formatter.format(amount);
     }
 
     private int volumnCreditsFor(Invoice.Performance aPerformance) {
