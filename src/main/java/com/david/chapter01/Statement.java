@@ -28,19 +28,19 @@ public class Statement {
             volumeCredits += volumnCreditsFor(perf);
 
             // 청구 내역 출력
-            result.append(String.format("%s: %s %d석\n", playFor(perf).getName(), format(amountFor(perf) / 100), perf.getAudience()));
+            result.append(String.format("%s: %s %d석\n", playFor(perf).getName(), usd(amountFor(perf)), perf.getAudience()));
             totalAmount += amountFor(perf);
         }
 
-        result.append(String.format("총액 %s\n", format(totalAmount / 100)));
+        result.append(String.format("총액 %s\n", usd(totalAmount)));
         result.append(String.format("적립 포인트 %d점\n", volumeCredits));
 
         return result.toString();
     }
 
-    private String format(double amount) {
+    private String usd(double aNumber) {
         NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
-        return formatter.format(amount);
+        return formatter.format(aNumber / 100);
     }
 
     private int volumnCreditsFor(Invoice.Performance aPerformance) {
