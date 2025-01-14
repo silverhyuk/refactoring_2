@@ -48,13 +48,6 @@ public class StatementData {
         return result;
     }
 
-    public String usd(double aNumber) {
-        NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.US);
-        return formatter.format(aNumber / 100);
-    }
-
-
-
     public int volumnCreditsFor(Invoice.Performance aPerformance) {
         int result = 0;
         // 포인트 적립

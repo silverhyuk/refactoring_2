@@ -36,6 +36,8 @@ public class App {
                 Statement statement = new Statement();
                 String result = statement.statement(invoice, plays);
                 logger.info("\n{}", result);
+                String htmlStatement = statement.htmlStatement(invoice, plays);
+                logger.info("\n{}", htmlStatement);
             }
         } catch (IOException e) {
             logger.error("Error", e);
