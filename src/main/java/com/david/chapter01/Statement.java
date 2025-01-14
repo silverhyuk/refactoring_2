@@ -18,7 +18,10 @@ public class Statement {
     }
 
     public  String statement() {
+        return renderPlainText();
+    }
 
+    private String renderPlainText() {
         StringBuilder result = new StringBuilder(String.format("청구내역 (고객명: %s)\n", invoice.getCustomer()));
 
         for (Invoice.Performance perf : invoice.getPerformances()) {
