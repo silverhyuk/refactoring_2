@@ -18,13 +18,17 @@ public class Statement {
     }
 
     public  String statement() {
-        return renderPlainText();
+        StatementData statementData = new StatementData();
+        statementData.setCustomer(invoice.getCustomer());
+        statementData.setPerformances(invoice.getPerformances());
+
+        return renderPlainText(statementData);
     }
 
-    private String renderPlainText() {
-        StringBuilder result = new StringBuilder(String.format("청구내역 (고객명: %s)\n", invoice.getCustomer()));
+    private String renderPlainText(StatementData data) {
+        StringBuilder result = new StringBuilder(String.format("청구내역 (고객명: %s)\n", data.getCustomer()));
 
-        for (Invoice.Performance perf : invoice.getPerformances()) {
+        for (Invoice.Performance perf : data.getPerformances()) {
             // 청구 내역 출력
             result.append(String.format("%s: %s %d석\n", playFor(perf).getName(), usd(amountFor(perf)), perf.getAudience()));
 

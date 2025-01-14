@@ -26,8 +26,8 @@ public class Invoice {
     }
 
     public static class Performance {
-        private String playID;
-        private int audience;
+        private final String playID;
+        private final int audience;
 
         public String getPlayID() {
             return playID;
@@ -37,11 +37,8 @@ public class Invoice {
             return audience;
         }
 
-        public void setPlayID(String playID) {
+        public Performance(String playID, int audience) {
             this.playID = playID;
-        }
-
-        public void setAudience(int audience) {
             this.audience = audience;
         }
     }

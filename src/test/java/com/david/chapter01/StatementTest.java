@@ -11,17 +11,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class StatementTest {
     @Test
     void testStatement() {
-        Invoice.Performance performance1 = new Invoice.Performance();
-        performance1.setPlayID("hamlet");
-        performance1.setAudience(55);
+        Invoice.Performance performance1 = new Invoice.Performance("hamlet", 55);
+        Invoice.Performance performance2 = new Invoice.Performance("as-like", 35);
+        Invoice.Performance performance3 = new Invoice.Performance("othello", 40);
 
-        Invoice.Performance performance2 = new Invoice.Performance();
-        performance2.setPlayID("as-like");
-        performance2.setAudience(35);
-
-        Invoice.Performance performance3 = new Invoice.Performance();
-        performance3.setPlayID("othello");
-        performance3.setAudience(40);
 
         Invoice invoice = new Invoice();
         invoice.setCustomer("BigCo");
