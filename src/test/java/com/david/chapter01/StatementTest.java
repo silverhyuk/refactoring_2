@@ -37,7 +37,7 @@ class StatementTest {
         plays.put("as-like", play2);
         plays.put("othello", play3);
 
-        String result = new Statement(invoice, plays).statement();
+        String result = new Statement().statement(invoice, plays);
 
         // 예상 결과를 설정합니다.
         String expected = "청구내역 (고객명: BigCo)\n" +
