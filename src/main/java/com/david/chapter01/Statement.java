@@ -11,9 +11,7 @@ public class Statement {
 
 
     public  String statement(Invoice invoice, Map<String, Play> plays) {
-        StatementData statementData = new StatementData(invoice, plays);
-
-        return renderPlainText(statementData);
+        return renderPlainText(new StatementData(invoice, plays));
     }
 
     private String renderPlainText(StatementData data) {
