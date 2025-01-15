@@ -1,10 +1,9 @@
 package com.david.chapter01;
 
 import com.david.chapter01.Invoice.Performance;
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class StatementData {
     private Invoice invoice;
@@ -18,9 +17,18 @@ public class StatementData {
         this.plays = plays;
         this.invoice = invoice;
         this.customer = invoice.getCustomer();
-        this.performances = invoice.getPerformances();
+        this.performances = invoice.getPerformances().stream()
+            .map(this::enrichPerformance)
+            .collect(Collectors.toList());
         this.totalAmount = totalAmount();
         this.totalVolumeCredits = totalVolumeCredits();
+    }
+    public EnrichedPerformance enrichPerformance(Invoice.Performance aPerformance) {
+        EnrichedPerformance result = new EnrichedPerformance(aPerformance);
+        result.setPlay(playFor(aPerformance));
+        result.setAmount(amountFor(aPerformance));
+        result.setVolumeCredits(volumnCreditsFor(aPerformance));
+        return result;
     }
 
     public String getCustomer() {
