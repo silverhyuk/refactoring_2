@@ -11,7 +11,7 @@ public class Statement {
 
 
     public  String statement(Invoice invoice, Map<String, Play> plays) {
-        return renderPlainText(new StatementData(invoice, plays));
+        return renderPlainText(StatementData.create(invoice, plays));
     }
 
     private String renderPlainText(StatementData data) {
@@ -29,7 +29,7 @@ public class Statement {
     }
 
     public String htmlStatement(Invoice invoice, Map<String, Play> plays) {
-        return renderHtml(new StatementData(invoice, plays));
+        return renderHtml(StatementData.create(invoice, plays));
     }
 
     private String renderHtml(StatementData data) {

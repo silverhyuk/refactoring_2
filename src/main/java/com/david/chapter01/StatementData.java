@@ -23,6 +23,11 @@ public class StatementData {
         this.totalAmount = totalAmount();
         this.totalVolumeCredits = totalVolumeCredits();
     }
+
+    public static StatementData create(Invoice invoice, Map<String, Play> plays) {
+        return new StatementData(invoice, plays);
+    }
+
     public EnrichedPerformance enrichPerformance(Invoice.Performance aPerformance) {
         EnrichedPerformance result = new EnrichedPerformance(aPerformance);
         result.setPlay(playFor(aPerformance));
