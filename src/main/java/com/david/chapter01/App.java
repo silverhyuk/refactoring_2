@@ -22,7 +22,6 @@ public class App {
             ObjectMapper objectMapper = new ObjectMapper();
             ClassLoader classLoader = App.class.getClassLoader();
 
-
             // plays.json 파일 로드
             InputStream playsStream = classLoader.getResourceAsStream("chapter01/plays.json");
             Map<String, Play> plays = objectMapper.readValue(playsStream, objectMapper.getTypeFactory().constructMapType(Map.class, String.class, Play.class));
