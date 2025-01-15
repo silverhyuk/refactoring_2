@@ -13,6 +13,7 @@ public class StatementData {
     private double totalAmount;
     private int totalVolumeCredits;
 
+
     public StatementData(Invoice invoice, Map<String, Play> plays) {
         this.plays = plays;
         this.invoice = invoice;
@@ -45,6 +46,13 @@ public class StatementData {
         return performances;
     }
 
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public int getTotalVolumeCredits() {
+        return totalVolumeCredits;
+    }
 
     public double totalAmount() {
         double result = 0;
@@ -80,27 +88,7 @@ public class StatementData {
     }
 
     public double amountFor(Invoice.Performance aPerformance) {
-        double result = 0;
-
-        switch (playFor(aPerformance).getType()) {
-            case "tragedy":
-                result = 40000;
-                if (aPerformance.getAudience() > 30) {
-                    result += 1000 * (aPerformance.getAudience() - 30);
-                }
-                break;
-
-            case "comedy":
-                result = 30000;
-                if (aPerformance.getAudience() > 20) {
-                    result += 10000 + 500 * (aPerformance.getAudience() - 20);
-                }
-                result += 300 * aPerformance.getAudience();
-                break;
-
-            default:
-                throw new IllegalArgumentException("알 수 없는 장르: " + playFor(aPerformance).getType());
-        }
-        return result;
+        PerformanceCalculator calculator = PerformanceCalculator.create(aPerformance, playFor(aPerformance));
+        return calculator.getAmount();
     }
 }

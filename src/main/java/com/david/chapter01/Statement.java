@@ -22,8 +22,8 @@ public class Statement {
             result.append(String.format("%s: %s %d석\n", data.playFor(perf).getName(), usd(data.amountFor(perf)), perf.getAudience()));
         }
 
-        result.append(String.format("총액 %s\n", usd(data.totalAmount())));
-        result.append(String.format("적립 포인트 %d점\n", data.totalVolumeCredits()));
+        result.append(String.format("총액 %s\n", usd(data.getTotalAmount())));
+        result.append(String.format("적립 포인트 %d점\n", data.getTotalVolumeCredits()));
 
         return result.toString();
     }
@@ -40,8 +40,8 @@ public class Statement {
             result.append(String.format("<tr><td>%s</td><td>%d석</td><td>%s</td></tr>\n", data.playFor(perf).getName(), perf.getAudience(), usd(data.amountFor(perf))));
         }
         result.append("</table>\n");
-        result.append(String.format("<p>총액: <em>%s</em></p>\n", usd(data.totalAmount())));
-        result.append(String.format("<p>적립 포인트: <em>%d</em>점</p>\n", data.totalVolumeCredits()));
+        result.append(String.format("<p>총액: <em>%s</em></p>\n", usd(data.getTotalAmount())));
+        result.append(String.format("<p>적립 포인트: <em>%d</em>점</p>\n", data.getTotalVolumeCredits()));
         return result.toString();
     }
 
