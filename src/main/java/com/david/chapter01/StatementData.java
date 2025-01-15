@@ -29,10 +29,11 @@ public class StatementData {
     }
 
     public EnrichedPerformance enrichPerformance(Invoice.Performance aPerformance) {
-        EnrichedPerformance result = new EnrichedPerformance(aPerformance);
-        result.setPlay(playFor(aPerformance));
-        result.setAmount(amountFor(aPerformance));
-        result.setVolumeCredits(volumnCreditsFor(aPerformance));
+        PerformanceCalculator calculator = PerformanceCalculator.create(aPerformance, playFor(aPerformance));
+        EnrichedPerformance result = EnrichedPerformance.create(aPerformance);
+        result.setPlay(calculator.getPlay());
+        result.setAmount(calculator.getAmount());
+        result.setVolumeCredits(calculator.getVolumeCredits());
         return result;
     }
 

@@ -10,6 +10,10 @@ public class EnrichedPerformance extends Invoice.Performance {
         super(performance.getPlayID(), performance.getAudience());
     }
 
+    public static EnrichedPerformance create(Invoice.Performance performance) {
+        return new EnrichedPerformance(performance);
+    }
+
     public Play getPlay() {
         return play;
     }
