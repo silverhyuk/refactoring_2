@@ -1,8 +1,8 @@
 package com.david.chapter01;
 
 public class PerformanceCalculator {
-    private Invoice.Performance performance;
-    private Play play;
+    protected Invoice.Performance performance;
+    protected Play play;
 
     public PerformanceCalculator(Invoice.Performance performance, Play play) {
         this.performance = performance;
@@ -10,7 +10,14 @@ public class PerformanceCalculator {
     }
 
     public static PerformanceCalculator create(Invoice.Performance performance, Play play) {
-        return new PerformanceCalculator(performance, play);
+        switch (play.getType()) {
+            case "tragedy":
+                return new TragedyCalculator(performance, play);
+            case "comedy":
+                return new ComedyCalculator(performance, play);
+            default:
+                throw new IllegalArgumentException("알 수 없는 장르: " + play.getType());
+        }
     }
 
     public Play getPlay() {
@@ -18,25 +25,7 @@ public class PerformanceCalculator {
     }
 
     public double getAmount() {
-        double result = 0;
-        switch (play.getType()) {
-            case "tragedy":
-                result = 40000;
-                if (performance.getAudience() > 30) {
-                    result += 1000 * (performance.getAudience() - 30);
-                }
-                break;
-            case "comedy":
-                result = 30000;
-                if (performance.getAudience() > 20) {
-                    result += 10000 + 500 * (performance.getAudience() - 20);
-                }
-                result += 300 * performance.getAudience();
-                break;
-            default:
-                throw new IllegalArgumentException("알 수 없는 장르: " + play.getType());
-        }
-        return result;
+        throw new IllegalStateException("서브클래스에서 처리하도록 설계되었습니다.");
     }
 
     public int getVolumeCredits() {
