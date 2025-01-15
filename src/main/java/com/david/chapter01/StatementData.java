@@ -6,12 +6,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class StatementData {
-    private Invoice invoice;
-    private Map<String, Play> plays;
-    private String customer;
-    private List<Performance> performances;
-    private double totalAmount;
-    private int totalVolumeCredits;
+    private final Invoice invoice;
+    private final Map<String, Play> plays;
+    private final String customer;
+    private final List<Performance> performances;
+    private final double totalAmount;
+    private final int totalVolumeCredits;
 
 
     public StatementData(Invoice invoice, Map<String, Play> plays) {

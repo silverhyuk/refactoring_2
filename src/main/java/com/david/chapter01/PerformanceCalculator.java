@@ -10,14 +10,11 @@ public class PerformanceCalculator {
     }
 
     public static PerformanceCalculator create(Invoice.Performance performance, Play play) {
-        switch (play.getType()) {
-            case "tragedy":
-                return new TragedyCalculator(performance, play);
-            case "comedy":
-                return new ComedyCalculator(performance, play);
-            default:
-                throw new IllegalArgumentException("알 수 없는 장르: " + play.getType());
-        }
+        return switch (play.getType()) {
+            case "tragedy" -> new TragedyCalculator(performance, play);
+            case "comedy" -> new ComedyCalculator(performance, play);
+            default -> throw new IllegalArgumentException("알 수 없는 장르: " + play.getType());
+        };
     }
 
     public Play getPlay() {

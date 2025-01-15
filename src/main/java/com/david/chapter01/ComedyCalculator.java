@@ -1,7 +1,5 @@
 package com.david.chapter01;
 
-import com.david.chapter01.Invoice.Performance;
-
 public class ComedyCalculator extends PerformanceCalculator {
 
     public ComedyCalculator(Invoice.Performance performance, Play play) {
@@ -20,6 +18,6 @@ public class ComedyCalculator extends PerformanceCalculator {
 
     @Override
     public int getVolumeCredits() {
-        return super.getVolumeCredits() + (int) Math.floor(performance.getAudience() / 5);
+        return super.getVolumeCredits() + (int) Math.floor((double) performance.getAudience() / 5);
     }
 }

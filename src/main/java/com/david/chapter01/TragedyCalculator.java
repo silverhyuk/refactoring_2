@@ -1,7 +1,5 @@
 package com.david.chapter01;
 
-import com.david.chapter01.Invoice.Performance;
-
 public class TragedyCalculator extends PerformanceCalculator {
 
 
