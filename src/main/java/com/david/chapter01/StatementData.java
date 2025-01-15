@@ -9,7 +9,7 @@ public class StatementData {
     private final Invoice invoice;
     private final Map<String, Play> plays;
     private final String customer;
-    private final List<Performance> performances;
+    private final List<EnrichedPerformance> performances;
     private final double totalAmount;
     private final int totalVolumeCredits;
 
@@ -42,7 +42,7 @@ public class StatementData {
         return customer;
     }
 
-    public List<Performance> getPerformances() {
+    public List<EnrichedPerformance> getPerformances() {
         return performances;
     }
 
@@ -55,32 +55,15 @@ public class StatementData {
     }
 
     public double totalAmount() {
-        double result = 0;
-        for (Invoice.Performance perf : invoice.getPerformances()) {
-            result += amountFor(perf);
-        }
-        return result;
+        return this.performances.stream()
+            .mapToDouble(EnrichedPerformance::getAmount)
+            .sum();
     }
 
     public int totalVolumeCredits() {
-        int result = 0;
-        for (Invoice.Performance perf : invoice.getPerformances()) {
-            result += volumnCreditsFor(perf);
-        }
-        return result;
-    }
-
-    public int volumnCreditsFor(Invoice.Performance aPerformance) {
-        int result = 0;
-        // 포인트 적립
-        result += Math.max(aPerformance.getAudience() - 30, 0);
-
-        // 희극 관객 5명마다 추가 포인트
-        if ("comedy".equals(playFor(aPerformance).getType())) {
-            result += (int) Math.floor((double) aPerformance.getAudience() / 5);
-        }
-
-        return result;
+        return this.performances.stream()
+            .mapToInt(EnrichedPerformance::getVolumeCredits)
+            .sum();
     }
 
     public Play playFor(Invoice.Performance aPerformance) {
