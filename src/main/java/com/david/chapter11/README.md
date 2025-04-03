@@ -1,4 +1,4 @@
-# **11.1** 질의 ****함수와 ****변경 ****함수 ****분리하기 (Separate Query from Modifier)
+# **11.1** 질의 **함수와** 변경 **함수** 분리하기 (Separate Query from Modifier)
 
 ### 1. 배경 (Motivation)
 
